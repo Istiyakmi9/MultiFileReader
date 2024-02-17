@@ -1,0 +1,8 @@
+fastapi~=0.109.2
+Jinja2
+uvicorn[standard]
+pandas
+pytesseract~=0.3.10
+pypdf2~=3.0.1
+pillow~=10.2.0
+python-multipart
