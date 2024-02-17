@@ -7,7 +7,7 @@ from service.pdf_file_service import PdfFileService
 route = APIRouter()
 
 
-@route.get("/file_detail")
+@route.get("/api/b_files/file_detail")
 async def get(request: Request) -> list[dict]:
     pipelines = [{
         "PipelineId": "#123456789",
@@ -68,7 +68,7 @@ async def get(request: Request) -> list[dict]:
     return pipelines
 
 
-@route.post("/upload_file")
+@route.post("/api/b_files/upload_file")
 async def upload_file(file: UploadFile = File(...)) -> Response:
     # Get file details
     filename = file.filename
