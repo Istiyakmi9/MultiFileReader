@@ -90,13 +90,13 @@ async def upload_file(file: UploadFile = File(...)) -> Response:
     })
 
 
-@route.post("/api/b_files/query")
-async def user_query(query_request: QueryRequest) -> Response:
-    print(query_request.query)
+@route.get("/api/b_files/query")
+async def user_query(query: str) -> Response:
+    print(query)
 
     genai.configure(api_key="AIzaSyBpzjEBd9w3GcQgbfAHMFexQ1VNP5ixho8")
     model = genai.GenerativeModel('gemini-pro')
-    response = model.generate_content(query_request.query)
+    response = model.generate_content(query)
     return JSONResponse(content={
         "content": response.text
     })
