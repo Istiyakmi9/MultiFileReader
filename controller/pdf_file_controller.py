@@ -90,7 +90,7 @@ async def upload_file(file: UploadFile = File(...)) -> Response:
     })
 
 
-@route.post("/api/query")
+@route.post("/api/b_files/query")
 async def user_query(query_request: QueryRequest) -> Response:
     print(query_request.query)
 
