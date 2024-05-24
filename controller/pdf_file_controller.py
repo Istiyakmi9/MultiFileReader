@@ -80,8 +80,8 @@ async def upload_file(file: UploadFile = File(...)) -> Response:
 
     try:
         file_content = await file.read()
-        fdfFileService = PdfFileService()
-        text_content = fdfFileService.read_pdf_file(file_content)
+        fdf_file_service = PdfFileService()
+        text_content = fdf_file_service.read_pdf_file(file_content)
     except Exception as ex:
         print(f"Error: {ex}")
 
@@ -90,13 +90,13 @@ async def upload_file(file: UploadFile = File(...)) -> Response:
     })
 
 
-@route.get("/api/b_files/query")
-async def user_query(query: str) -> Response:
-    print(query)
+@route.post("/api/b_files/query")
+async def user_query(query_request: QueryRequest) -> Response:
+    print(query_request.query)
 
     genai.configure(api_key="AIzaSyBpzjEBd9w3GcQgbfAHMFexQ1VNP5ixho8")
     model = genai.GenerativeModel('gemini-pro')
-    response = model.generate_content(query)
+    response = model.generate_content(query_request.query)
     return JSONResponse(content={
         "content": response.text
     })
