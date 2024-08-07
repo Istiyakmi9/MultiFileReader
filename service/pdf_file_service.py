@@ -3,7 +3,6 @@ from io import BytesIO
 import pytesseract
 import PyPDF2
 
-
 class PdfFileService:
 
     def __init__(self):
@@ -17,14 +16,11 @@ class PdfFileService:
     # download binary from https://github.com/UB-Mannheim/tesseract/wiki. then add
     # pytesseract.pytesseract.tesseract_cmd = 'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
 
-    def read_text_from_image(self, image_path):
+    def read_text_from_image(self, bytes):
         try:
-            # Open an image file
-            with Image.open(image_path) as img:
-                # Perform OCR on the image
-                pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
-                text = pytesseract.image_to_string(img)
-                return text
+            # pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+            image = Image.open(BytesIO(bytes))
+            return pytesseract.image_to_string(image)
         except Exception as e:
             print("Error reading the image:", e)
             return None

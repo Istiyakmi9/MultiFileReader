@@ -90,6 +90,25 @@ async def upload_file(file: UploadFile = File(...)) -> Response:
     })
 
 
+@route.post("/api/b_files/read_image")
+async def read_image(file: UploadFile = File(...)) -> Response:
+    file_name = file.filename
+    content_type = file.content_type
+    file_size = file.size
+    text_content = "fail"
+
+    try:
+        file_content = await file.read()
+        file_service = PdfFileService()
+        text_content = file_service.read_text_from_image(file_content)
+    except Exception as ex:
+        print(f"Error: {ex}")
+
+    return JSONResponse(content={
+        "content": text_content
+    })
+
+
 @route.post("/api/b_files/query")
 async def user_query(query_request: QueryRequest) -> Response:
     print(query_request.query)
